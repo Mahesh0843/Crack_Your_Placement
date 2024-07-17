@@ -1,0 +1,46 @@
+class MyQueue {
+    Stack <Integer> i=new Stack<>();
+    Stack <Integer> o=new Stack<>();
+    public MyQueue() {
+        
+    }
+    
+    public void push(int x) {
+        while(!i.empty())
+        {
+            o.push(i.peek());
+            i.pop();
+        }i.push(x);
+        while(!o.empty())
+        {
+            i.push(o.peek());
+            o.pop();
+        }
+    }
+    public int pop() {
+        if(i.empty())
+        {
+            return -1;
+        }
+        int v=i.peek();
+        i.pop();
+        return v;
+    }
+    
+    public int peek() {
+        return i.peek();
+    }
+    
+    public boolean empty() {
+        return i.isEmpty();
+    }
+    public static void main(String[] args)
+    {
+        int y=0;
+    MyQueue obj = new MyQueue();
+    obj.push(y);
+     int param_2 = obj.pop();
+     int param_3 = obj.peek();
+     boolean param_4 = obj.empty();
+    }
+}
