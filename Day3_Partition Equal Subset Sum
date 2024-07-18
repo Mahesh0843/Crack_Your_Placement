@@ -1,0 +1,40 @@
+ass Solution{
+    static int equalPartition(int n, int arr[])
+    {
+        // code here
+        int t =0;
+        for(int i: arr)
+        {
+            t+=i;
+        }
+        if(t%2!=0) return 0;
+        t=t/2;
+        boolean[][] dp=new boolean[n][t+1];
+        for(int i=0;i<n;i++)
+        {
+            dp[i][0]=true;
+        }
+        if(arr[0]<=t)
+        {
+            dp[0][arr[0]]=true;
+        }
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<=t;j++)
+            {
+                boolean nt=dp[i-1][j];
+                boolean tt=false;
+                if(j>=arr[i])
+                {
+                    tt=dp[i-1][j-arr[i]];
+                }
+                dp[i][j]=nt||tt;
+            }
+        }
+        if(dp[n-1][t]==true)
+        {
+            return 1;
+        }
+        return 0;
+    }
+}
