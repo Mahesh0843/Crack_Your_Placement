@@ -1,0 +1,28 @@
+
+
+class Solution {
+    static ArrayList<ArrayList<Integer>> uniquePerms(ArrayList<Integer> arr, int n) {
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        Collections.sort(arr); // Sort the array to handle duplicates
+        com(arr, a, 0, n);
+        return a;
+    }
+
+    public static void com(ArrayList<Integer> arr, ArrayList<ArrayList<Integer>> a, int i, int n) {
+        if (i == n) {
+            ArrayList<Integer> t = new ArrayList<>(arr);
+            a.add(new ArrayList<>(t));
+            return;
+        }
+
+        for (int j = i; j < n; j++) {
+            if (j > i && arr.get(j).equals(arr.get(j - 1))) {
+                continue; // Skip duplicates
+            }
+            Collections.swap(arr, i, j);
+            com(arr, a, i + 1, n);
+            Collections.swap(arr, i, j); // Swap back to restore the original array
+        }
+    }
+
+}
