@@ -1,0 +1,37 @@
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+        int[] dr = {-1, 0, +1, 0};
+        int[] dc = {0, +1, 0, -1};
+        int[][] vis = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == word.charAt(0) && dfs(board, i, j, word, 0, vis, n, m, dr, dc)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean dfs(char[][] board, int ir, int ic, String word, int c, int[][] vis, int n, int m, int[] dr, int[] dc) {
+        if (c == word.length() - 1) {
+            return true;
+        }
+
+        vis[ir][ic] = 1;
+        for (int i = 0; i < 4; i++) {
+            int nr = ir + dr[i];
+            int nc = ic + dc[i];
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && vis[nr][nc] == 0 && board[nr][nc] == word.charAt(c + 1)) {
+                if (dfs(board, nr, nc, word, c + 1, vis, n, m, dr, dc)) {
+                    return true;
+                }
+            }
+        }
+        vis[ir][ic] = 0; 
+        return false;
+    }
+}
